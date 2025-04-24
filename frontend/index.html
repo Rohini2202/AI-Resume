@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AI Resume Maker</title>
+    <style>
+        label, input, button {
+            display: block;
+            margin: 5px 0;
+        }
+        .section {
+            margin: 20px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="section">
+        <h2>Personal Information</h2>
+        <label>Name: <input type="text" id="nameInput"></label>
+        <label>Email: <input type="email" id="emailInput"></label>
+        <label>Phone Number: <input type="text" id="phoneInput" maxlength="10"></label>
+        <label>Profile URL (LinkedIn/Github): <input type="text" id="profileInput"></label>
+    </div>
+
+    <div class="section" id="educationSection">
+        <h2>Education Details</h2>
+        <button onclick="showFormEducation()">Add Details</button>
+        <div id="educationFormSection" style="display: none;">
+            <label>Degree: <input type="text" id="degreeInput"></label>
+            <label>Institution: <input type="text" id="instituteInput"></label>
+            <label>CGPA/Percentage: <input type="text" id="gpaInput"></label>
+            <label>Year: <input type="text" id="eduYearInput"></label>
+            <button onclick="saveEducationDetails()">Save</button>
+        </div>
+    </div>
+
+
+    <div class="section" id="workSection">
+        <h2>Work Experience</h2>
+        <button onclick="showWorkForm()">Add Details</button>
+        <div id="workFormSection" style="display: none;">
+            <label>Company Name: <input type="text" id="companyInput"></label>
+            <label>Work Description: <input type="text" id="workInput"></label>
+            <label>Location: <input type="text" id="locationInput"></label>
+            <label>Years of Experience: <input type="text" id="expYearInput"></label>
+            <button onclick="saveWorkDetails()">Save</button>
+        </div>
+    </div>
+
+    <div class="section" id="skillsSection">
+        <h2>Skills</h2>
+        <label>Add Skill: <input type="text" id="skillInput"></label>
+        <button onclick="addSkill()">Add</button>
+        <ul id="skillsList"></ul>
+    </div>
+
+    <div class="section" id="projectsSection">
+        <h2>Projects</h2>
+        <label>Project Title: <input type="text" id="projectTitle" onblur="autoDescribeProject()"></label>
+        <label>Description: <input type="text" id="projectDesc"></label>
+
+        <ul id="projectList"></ul>
+    </div>
+
+    <div class="section" id="certificatesSection">
+        <h2>Certificates / Achievements</h2>
+        <label>Certificate / Achievement: <input type="text" id="certInput"></label>
+        <button onclick="addCertificate()">Add</button>
+        <ul id="certList"></ul>
+    </div>
+    <div class="section">
+        <button onclick="submitResume()">Submit Resume</button>
+    </div>
+    
+
+    <script>
+        function showFormEducation() {
+            document.getElementById('educationFormSection').style.display = 'block';
+        }
+
+        function saveEducationDetails() {
+            const degree = document.getElementById('degreeInput').value;
+            const college = document.getElementById('instituteInput').value;
+            const gpa = document.getElementById('gpaInput').value;
+            const year = document.getElementById('eduYearInput').value;
+
+            if (!degree || !college || !gpa || !year) {
+                alert("Please fill all education fields.");
+                return;
+            }
+
+            const section = document.getElementById('educationSection');
+            section.innerHTML += `
+                <p><strong>${degree}</strong> from ${college} - ${gpa} (${year})</p>
+            `;
+            document.getElementById('educationFormSection').style.display = 'none';
+        }
+
+        function showWorkForm() {
+            document.getElementById('workFormSection').style.display = 'block';
+        }
+
+        function saveWorkDetails() {
+            const company = document.getElementById('companyInput').value;
+            const work = document.getElementById('workInput').value;
+            const location = document.getElementById('locationInput').value;
+            const year = document.getElementById('expYearInput').value;
+
+            if (!company || !work || !location || !year) {
+                alert("Please fill all work fields.");
+                return;
+            }
+
+            const section = document.getElementById('workSection');
+            section.innerHTML += `
+                <p><strong>${company}</strong> - ${work}, ${location} (${year} yrs)</p>
+            `;
+            document.getElementById('workFormSection').style.display = 'none';
+        }
+
+        function addSkill() {
+            const skill = document.getElementById('skillInput').value;
+            if (!skill) return;
+            const li = document.createElement('li');
+            li.textContent = skill;
+            document.getElementById('skillsList').appendChild(li);
+            document.getElementById('skillInput').value = '';
+        }
+
+        function addProject() {
+            const title = document.getElementById('projectTitle').value;
+            const desc = document.getElementById('projectDesc').value;
+            if (!title || !desc) return;
+            const li = document.createElement('li');
+            li.innerHTML = `<strong>${title}</strong>: ${desc}`;
+            document.getElementById('projectList').appendChild(li);
+            document.getElementById('projectTitle').value = '';
+            document.getElementById('projectDesc').value = '';
+        }
+
+        function addCertificate() {
+            const cert = document.getElementById('certInput').value;
+            if (!cert) return;
+            const li = document.createElement('li');
+            li.textContent = cert;
+            document.getElementById('certList').appendChild(li);
+            document.getElementById('certInput').value = '';
+        }
+    
+        async function submitResume() {
+            const name = document.getElementById('nameInput').value;
+            const email = document.getElementById('emailInput').value;
+            const phone = document.getElementById('phoneInput').value;
+            const profile = document.getElementById('profileInput').value;
+        
+            const education = [{
+                degree: document.getElementById('degreeInput').value,
+                institution: document.getElementById('instituteInput').value,
+                gpa: document.getElementById('gpaInput').value,
+                year: document.getElementById('eduYearInput').value
+            }];
+        
+            const work = [{
+                company: document.getElementById('companyInput').value,
+                description: document.getElementById('workInput').value,
+                location: document.getElementById('locationInput').value,
+                years: document.getElementById('expYearInput').value
+            }];
+        
+            const skills = Array.from(document.getElementById('skillsList').children).map(li => li.textContent);
+            const projects = Array.from(document.getElementById('projectList').children).map(li => {
+                const [title, ...desc] = li.textContent.split(':');
+                return { title: title.trim(), description: desc.join(':').trim() };
+            });
+            const certificates = Array.from(document.getElementById('certList').children).map(li => li.textContent);
+        
+            const summaryRes = await fetch('http://localhost:3000/api/generate-summary', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, email, phone, profile, education, work, skills, projects })
+            });
+        
+            const summaryData = await summaryRes.json();
+            const summary = summaryData.summary;
+            alert("Professional Summary:\n\n" + summary);
+        
+            const saveRes = await fetch('http://localhost:3000/api/save-resume', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, email, phone, profile, education, work, skills, projects, certificates, summary })
+            });
+        
+            const saveData = await saveRes.json();
+            alert(saveData.message);
+        }
+        async function autoDescribeProject() {
+            const title = document.getElementById("projectTitle").value;
+            if (!title) return;
+
+            const res = await fetch('http://localhost:3000/api/generate-project-desc', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ projectTitle: title })
+            });
+
+            const data = await res.json();
+            document.getElementById("projectDesc").value = data.description;
+        }
+
+        
+    </script>
+
+</body>
+</html>

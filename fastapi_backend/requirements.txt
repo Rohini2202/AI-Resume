@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+spacy
+openai
+xgboost
+scikit-learn
+joblib
+PyPDF2
