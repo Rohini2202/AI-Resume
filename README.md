@@ -89,7 +89,9 @@ requirements.txt
 - openai
 - joblib
 - PyPDF2
+
 Install SpaCy model:
+
 bash
 ```
 python -m spacy download en_core_web_sm
@@ -104,7 +106,7 @@ Endpoint 2
 - POST /ner/extract	Extract entities from resume file
 - POST /score/resume	Predict resume completeness score
 
-To-Do
+## To-Do
  - Export resume as PDF
  - Add more GPT prompt types (job summary, achievements)
  - Deploy backend on Render/Heroku and FastAPI on Deta/AWS Lambda
