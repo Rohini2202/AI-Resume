@@ -69,11 +69,11 @@ node server.js
 
 ### Set your .env:
 env
-OPENAI_API_KEY=your_openai_key
-MYSQL_HOST=localhost
-MYSQL_USER=root
-MYSQL_PASSWORD=yourpassword
-MYSQL_DATABASE=resumedb
+- OPENAI_API_KEY=your_openai_key
+- MYSQL_HOST=localhost
+- MYSQL_USER=root
+- MYSQL_PASSWORD=yourpassword
+- MYSQL_DATABASE=resumedb
 
 ### FastAPI Backend
 bash
@@ -83,14 +83,12 @@ pip install -r requirements.txt
 uvicorn main:app --reload
 ```
 requirements.txt
-fastapi
-uvicorn
-spacy
-openai
-xgboost
-scikit-learn
-joblib
-PyPDF2
+- fastapi
+- uvicorn
+- spacy
+- openai
+- joblib
+- PyPDF2
 Install SpaCy model:
 bash
 ```
