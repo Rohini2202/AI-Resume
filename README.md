@@ -31,16 +31,16 @@ This project is a smart resume-building web application powered by **Machine Lea
 ---
 
 ## Project Structure
-ai-resume/├── backend/ # Node.js 
-          ├──backend │ ├── routes/ ├── gpt_api.js 
-                                   └── resume_api.js 
+ai-resume/├──  # Node.js 
+          ├──backend ├── routes/ ├── gpt_api.js 
+                                 └── resume_api.js 
           ├── server.js 
-          └── .env │ 
+          └── .env 
           ├── fastapi_backend/ ├── main.py 
                                ├── ner.py 
                                ├── score.py 
-          ├── frontend/ │ 
-                        └── index.html # Main HTML UI 
+          ├── frontend/ 
+          └── index.html # Main HTML UI 
           └── README.md
 
 
@@ -53,7 +53,7 @@ ai-resume/├── backend/ # Node.js
 - Node.js and npm
 - Python 3.8+
 - MySQL Server
-- `spacy`, `xgboost`, `scikit-learn`, `openai`, `joblib`, `PyPDF2`
+- `spacy`, `openai`, `joblib`, `PyPDF2`
 
 ### Frontend
 
