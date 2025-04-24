@@ -95,16 +95,14 @@ bash
 python -m spacy download en_core_web_sm
 ```
 ### API Endpoints
-Node.js
-
-Endpoint	Description
-POST /gpt/generate	Generate GPT-based text
-POST /resume/save	Save resume data to MySQL
-FastAPI
-
-Endpoint	Description
-POST /ner/extract	Extract entities from resume file
-POST /score/resume	Predict resume completeness score
+#### Node.js
+Endpoint 1
+- POST /gpt/generate	Generate GPT-based text
+- POST /resume/save	Save resume data to MySQL
+#### FastAPI
+Endpoint 2
+- POST /ner/extract	Extract entities from resume file
+- POST /score/resume	Predict resume completeness score
 
 To-Do
  - Export resume as PDF
